@@ -11,3 +11,17 @@
     box-shadow: none !important;
   }
 }
+
+.checkbox {
+  border: none;
+
+  background-color: bootstrap.$gray-800;
+  width: 1.5em;
+  height: 1.5em;
+  &:active,
+  &:focus,
+  &:focus:active {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+}

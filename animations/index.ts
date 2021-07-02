@@ -9,7 +9,7 @@ export const fadeInUp = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.5,
       ease: easing,
     },
   },
