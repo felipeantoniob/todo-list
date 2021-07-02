@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { Button, ButtonGroup, Form, ListGroup } from 'react-bootstrap'
 import { fadeInUp } from '../animations/index'
-import { ToDoProps } from '../interfaces'
+import { ToDoProps, ToDoComponentProps } from '../interfaces'
 
-const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }) => {
+const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps): JSX.Element => {
   const completeToDo: React.ChangeEventHandler<HTMLInputElement> = () => {
     setToDos(
       toDos.map((item: ToDoProps) => {

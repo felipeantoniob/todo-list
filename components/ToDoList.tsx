@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { stagger } from '../animations/index'
-import { ToDoProps } from '../interfaces'
+import { ToDoProps, ToDoListProps } from '../interfaces'
 import ToDo from './ToDo'
 
-const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }) => {
+const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }: ToDoListProps): JSX.Element => {
   return (
     <motion.div variants={stagger}>
       {filteredToDos.map((toDo: ToDoProps) => (

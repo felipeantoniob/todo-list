@@ -8,7 +8,7 @@ import ToDoForm from '../components/ToDoForm'
 import ToDoList from '../components/ToDoList'
 import { ToDoProps } from '../interfaces'
 
-export default function Home() {
+export default function Home(): JSX.Element {
   // const initialState = JSON.parse(localStorage.getItem('toDos')) || []
   const [toDos, setToDos] = useState<ToDoProps[]>([])
   const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
@@ -24,9 +24,10 @@ export default function Home() {
   useEffect(() => {
     filterHandler()
     saveLocalToDos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toDos, status])
 
-  const filterHandler = () => {
+  const filterHandler = (): void => {
     switch (status) {
       case 'completed':
         setFilteredToDos(toDos.filter((toDo) => toDo.completed === true))
@@ -40,11 +41,11 @@ export default function Home() {
     }
   }
 
-  const saveLocalToDos = () => {
+  const saveLocalToDos = (): void => {
     localStorage.setItem('toDos', JSON.stringify(toDos))
   }
 
-  const getLocalToDos = () => {
+  const getLocalToDos = (): void => {
     if (localStorage.getItem('toDos') === null) {
       localStorage.setItem('toDos', JSON.stringify([]))
     } else {
@@ -53,7 +54,7 @@ export default function Home() {
     }
   }
 
-  const getLocalTheme = () => {
+  const getLocalTheme = (): void => {
     if (localStorage.getItem('theme') === null) {
       localStorage.setItem('theme', 'dark')
     } else {
@@ -62,15 +63,15 @@ export default function Home() {
     }
   }
 
-  const themeSwitcher = () => {
-    if (theme === 'dark') {
-      setTheme('light')
-      localStorage.setItem('theme', 'light')
-    } else if (theme === 'light') {
-      setTheme('dark')
-      localStorage.setItem('theme', 'dark')
-    }
-  }
+  // const themeSwitcher = (): void => {
+  //   if (theme === 'dark') {
+  //     setTheme('light')
+  //     localStorage.setItem('theme', 'light')
+  //   } else if (theme === 'light') {
+  //     setTheme('dark')
+  //     localStorage.setItem('theme', 'dark')
+  //   }
+  // }
 
   return (
     <>
@@ -80,7 +81,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={theme === 'dark' ? 'dark-mode' : 'light-mode'}>
+      <main className={theme === 'light' ? 'light-mode' : 'dark-mode'}>
         <motion.div initial="initial" animate="animate" exit={{ opacity: 0 }}>
           <Container className="min-vh-100 pb-5">
             <motion.div initial="initial" animate="animate" variants={fadeInUp}>

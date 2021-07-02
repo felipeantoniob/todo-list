@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, FormControl, InputGroup } from 'react-bootstrap'
 import { v4 as uuidv4 } from 'uuid'
-import { ToDoProps } from '../interfaces'
+import { ToDoProps, ToDoFormProps } from '../interfaces'
 
-const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
+const ToDoForm = ({
+  toDos,
+  setToDos,
+  setStatus,
+  editToDo,
+  setEditToDo,
+}: ToDoFormProps): JSX.Element => {
   const [input, setInput] = useState('')
   const toDoInput = useRef(null)
 
@@ -39,7 +45,7 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
       setToDos([...toDos, { text: input, id: uuidv4(), completed: false }])
       setInput('')
     } else {
-      updateToDo(input, editToDo.id, editToDo.completed)
+      updateToDo(input, editToDo.id)
     }
   }
 
@@ -47,7 +53,7 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
     setStatus(e.currentTarget.value)
   }
 
-  const updateToDo = (text: string, id: string, completed: boolean) => {
+  const updateToDo = (text: string, id: string): void => {
     const newToDos = toDos.map((item: ToDoProps) => {
       if (item.id === id) {
         return { ...item, text: text }
@@ -56,9 +62,8 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
       }
       // item.id === id ? { ...item, text: text } : item
     })
-
     setToDos(newToDos)
-    setEditToDo('')
+    setEditToDo(null)
   }
 
   return (
@@ -117,7 +122,7 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
       <Col xs="auto" className="mb-3">
         <select
           className="form-select form-select-lg shadow-sm"
-          onChange={statusHandler}
+          onBlur={statusHandler}
           defaultValue="all"
         >
           <option value="all">All</option>

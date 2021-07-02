@@ -1,6 +1,11 @@
 import Col from 'react-bootstrap/Col'
 
-const ThemeSwitcher = ({ themeSwitcher, theme }) => {
+type ThemeSwitcherProps = {
+  theme: string
+  themeSwitcher: React.FormEventHandler<HTMLDivElement>
+}
+
+const ThemeSwitcher = ({ themeSwitcher, theme }: ThemeSwitcherProps): JSX.Element => {
   return (
     <>
       <Col xs="auto">
