@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Col, Button, InputGroup, Form, FormControl, NavItem } from 'react-bootstrap'
+import React, { useEffect, useRef, useState } from 'react'
+import { Button, Col, Form, FormControl, InputGroup } from 'react-bootstrap'
 import { v4 as uuidv4 } from 'uuid'
 import { ToDoProps } from '../interfaces'
 
@@ -16,7 +16,6 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
     if (editToDo) {
       setInput(editToDo.text)
       toDoInput.current.focus()
-      // console.log(editToDo)
     } else {
       setInput('')
     }
@@ -37,15 +36,10 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
       return
     }
 
-    // setToDos([...toDos, { text: input, id: uuidv4(), completed: false }])
-    // setInput('')
-
     if (!editToDo) {
       setToDos([...toDos, { text: input, id: uuidv4(), completed: false }])
       setInput('')
     } else {
-      // console.log(input)
-      // console.log(editToDo.id)
       updateToDo(input, editToDo.id, editToDo.completed)
     }
   }
@@ -63,7 +57,7 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
       }
       // item.id === id ? { ...item, text: text } : item
     })
-    // console.log(newToDos);
+
     setToDos(newToDos)
     setEditToDo('')
   }
@@ -71,7 +65,7 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
   return (
     <>
       <Col xs={12} md={6} className="mb-3">
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="shadow-sm">
           <InputGroup size="lg">
             <FormControl
               type="text"
@@ -81,15 +75,10 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
               aria-label="Add a to-do"
               aria-describedby="Add a to-do"
               value={input}
-              className="py-3"
+              className="py-3 text-input"
             />
             <InputGroup.Append>
-              <Button
-                type="submit"
-                size="lg"
-                className="p-3 rounded-end add-button"
-                variant="secondary"
-              >
+              <Button type="submit" size="lg" className="p-3 add-button" variant="secondary">
                 {!editToDo ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +99,15 @@ const ToDoForm = ({ toDos, setToDos, setStatus, editToDo, setEditToDo }) => {
         </Form>
       </Col>
       <Col xs="auto" className="mb-3">
-        {/* <Form.Select> */}
-        <select className="form-select form-select-lg" onChange={statusHandler} defaultValue="all">
+        <select
+          className="form-select form-select-lg shadow-sm"
+          onChange={statusHandler}
+          defaultValue="all"
+        >
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>
         </select>
-        {/* </Form.Select> */}
       </Col>
     </>
   )

@@ -1,0 +1,13 @@
+@use '../vendors/bootstrap';
+
+.text-input {
+  &:active,
+  &:focus,
+  &:focus:active {
+    // border: 15px solid #ced4da !important;
+    // border: none !important;
+    border-right: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+}

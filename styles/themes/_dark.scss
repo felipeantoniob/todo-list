@@ -1,0 +1,31 @@
+@use '../vendors/bootstrap';
+
+.dark-mode {
+  background-color: bootstrap.$gray-800;
+  color: bootstrap.$gray-100;
+
+  .form-control,
+  .form-select,
+  .list-group-item {
+    background-color: bootstrap.$gray-900;
+    color: bootstrap.$gray-300;
+    border: 0em !important;
+  }
+
+  .form-check-input {
+    &:checked {
+      background-color: bootstrap.$gray-700;
+      border-color: bootstrap.$gray-700;
+    }
+    &:focus {
+      border-color: bootstrap.$gray-300;
+      outline: 0;
+      -webkit-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+  }
+
+  .add-button {
+    background-color: bootstrap.$gray-900;
+  }
+}

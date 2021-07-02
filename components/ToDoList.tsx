@@ -1,9 +1,11 @@
-import ToDo from './ToDo'
+import { motion } from 'framer-motion'
+import { stagger } from '../animations/index'
 import { ToDoProps } from '../interfaces'
+import ToDo from './ToDo'
 
 const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }) => {
   return (
-    <>
+    <motion.div variants={stagger}>
       {filteredToDos.map((toDo: ToDoProps) => (
         <ToDo
           key={toDo.id}
@@ -14,7 +16,7 @@ const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }) => {
           setEditToDo={setEditToDo}
         />
       ))}
-    </>
+    </motion.div>
   )
 }
 

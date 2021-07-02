@@ -1,4 +1,5 @@
 // import Footer from './Footer'
+import { AnimatePresence } from 'framer-motion'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -7,8 +8,10 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   return (
     <div className="content">
-      {children}
-      {/* <Footer /> */}
+      <AnimatePresence exitBeforeEnter>
+        {children}
+        {/* <Footer /> */}
+      </AnimatePresence>
     </div>
   )
 }
