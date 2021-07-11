@@ -22,28 +22,33 @@ export default function Home(): JSX.Element {
   }, [])
 
   useEffect(() => {
+    console.log(filteredToDos)
+  }, [filteredToDos])
+
+  useEffect(() => {
+    console.log(status)
+  }, [status])
+
+  useEffect(() => {
+    const filterHandler = (): void => {
+      switch (status) {
+        case 'completed':
+          setFilteredToDos(toDos.filter((toDo) => toDo.completed === true))
+          break
+        case 'uncompleted':
+          setFilteredToDos(toDos.filter((toDo) => toDo.completed === false))
+          break
+        default:
+          setFilteredToDos(toDos)
+          break
+      }
+    }
+    const saveLocalToDos = (): void => {
+      localStorage.setItem('toDos', JSON.stringify(toDos))
+    }
     filterHandler()
     saveLocalToDos()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toDos, status])
-
-  const filterHandler = (): void => {
-    switch (status) {
-      case 'completed':
-        setFilteredToDos(toDos.filter((toDo) => toDo.completed === true))
-        break
-      case 'uncompleted':
-        setFilteredToDos(toDos.filter((toDo) => toDo.completed === false))
-        break
-      default:
-        setFilteredToDos(toDos)
-        break
-    }
-  }
-
-  const saveLocalToDos = (): void => {
-    localStorage.setItem('toDos', JSON.stringify(toDos))
-  }
 
   const getLocalToDos = (): void => {
     if (localStorage.getItem('toDos') === null) {
@@ -63,16 +68,6 @@ export default function Home(): JSX.Element {
     }
   }
 
-  // const themeSwitcher = (): void => {
-  //   if (theme === 'dark') {
-  //     setTheme('light')
-  //     localStorage.setItem('theme', 'light')
-  //   } else if (theme === 'light') {
-  //     setTheme('dark')
-  //     localStorage.setItem('theme', 'dark')
-  //   }
-  // }
-
   return (
     <>
       <Head>
@@ -85,9 +80,8 @@ export default function Home(): JSX.Element {
         <motion.div initial="initial" animate="animate" exit={{ opacity: 0 }}>
           <Container className="min-vh-100 pb-5">
             <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-              {/* <h1 className="text-center py-5">To-Do List</h1> */}
               <Row className="justify-content-center mb-5">
-                {/* <ThemeSwitcher themeSwitcher={themeSwitcher} theme={theme} /> */}
+                {/* <ThemeSwitcher setTheme={setTheme} theme={theme} /> */}
               </Row>
               <Row className="justify-content-center align-items-center mb-5">
                 <ToDoForm
@@ -100,6 +94,7 @@ export default function Home(): JSX.Element {
               </Row>
             </motion.div>
             <Row className="px-2">
+              {/* TODO: Fix list items exit animations */}
               <ToDoList
                 setToDos={setToDos}
                 toDos={toDos}

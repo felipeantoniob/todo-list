@@ -2,10 +2,20 @@ import Col from 'react-bootstrap/Col'
 
 type ThemeSwitcherProps = {
   theme: string
-  themeSwitcher: React.FormEventHandler<HTMLDivElement>
+  setTheme: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ThemeSwitcher = ({ themeSwitcher, theme }: ThemeSwitcherProps): JSX.Element => {
+const ThemeSwitcher = ({ theme, setTheme }: ThemeSwitcherProps): JSX.Element => {
+  const themeSwitcher = (): void => {
+    if (theme === 'dark') {
+      setTheme('light')
+      localStorage.setItem('theme', 'light')
+    } else if (theme === 'light') {
+      setTheme('dark')
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+
   return (
     <>
       <Col xs="auto">

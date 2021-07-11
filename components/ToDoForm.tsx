@@ -122,6 +122,7 @@ const ToDoForm = ({
       <Col xs="auto" className="mb-3">
         <select
           className="form-select form-select-lg shadow-sm"
+          onChange={statusHandler}
           onBlur={statusHandler}
           defaultValue="all"
         >
