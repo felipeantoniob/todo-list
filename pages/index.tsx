@@ -14,20 +14,20 @@ export default function Home(): JSX.Element {
   const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
   const [status, setStatus] = useState('all')
   const [editToDo, setEditToDo] = useState<null | ToDoProps>(null)
-  const [theme, setTheme] = useState('light')
+  // const [theme, setTheme] = useState('light')
 
   useEffect(() => {
     getLocalToDos()
-    getLocalTheme()
+    // getLocalTheme()
   }, [])
 
-  useEffect(() => {
-    console.log(filteredToDos)
-  }, [filteredToDos])
+  // useEffect(() => {
+  //   console.log(filteredToDos)
+  // }, [filteredToDos])
 
-  useEffect(() => {
-    console.log(status)
-  }, [status])
+  // useEffect(() => {
+  //   console.log(status)
+  // }, [status])
 
   useEffect(() => {
     const filterHandler = (): void => {
@@ -59,14 +59,14 @@ export default function Home(): JSX.Element {
     }
   }
 
-  const getLocalTheme = (): void => {
-    if (localStorage.getItem('theme') === null) {
-      localStorage.setItem('theme', 'dark')
-    } else {
-      const themeLocal = localStorage.getItem('theme')
-      setTheme(themeLocal)
-    }
-  }
+  // const getLocalTheme = (): void => {
+  //   if (localStorage.getItem('theme') === null) {
+  //     localStorage.setItem('theme', 'dark')
+  //   } else {
+  //     const themeLocal = localStorage.getItem('theme')
+  //     setTheme(themeLocal)
+  //   }
+  // }
 
   return (
     <>
@@ -76,7 +76,8 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={theme === 'light' ? 'light-mode' : 'dark-mode'}>
+      {/* <main className={theme === 'light' ? 'light-mode' : 'dark-mode'}> */}
+      <main className="dark-mode">
         <motion.div initial="initial" animate="animate" exit={{ opacity: 0 }}>
           <Container className="min-vh-100 pb-5">
             <motion.div initial="initial" animate="animate" variants={fadeInUp}>
