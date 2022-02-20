@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
   const [toDos, setToDos] = useState<ToDoProps[]>([])
   const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
   const [status, setStatus] = useState('all')
-  const [editToDo, setEditToDo] = useState<ToDoProps| null>({})
+  const [editToDo, setEditToDo] = useState<ToDoProps | null>(null)
   // const [theme, setTheme] = useState('light')
 
   useEffect(() => {

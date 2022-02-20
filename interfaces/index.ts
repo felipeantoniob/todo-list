@@ -5,15 +5,15 @@ export type ToDoProps = {
 }
 
 export type ToDoFormProps = {
-  editToDo: ToDoProps
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+  editToDo: ToDoProps | null
+  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
   setStatus: React.Dispatch<React.SetStateAction<string>>
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   toDos: ToDoProps[]
 }
 
 export type ToDoComponentProps = {
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   text: string
   toDo: ToDoProps
@@ -24,6 +24,6 @@ export type ToDoListProps = {
   toDos: ToDoProps[]
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   filteredToDos: ToDoProps[]
-  // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
   // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
 }

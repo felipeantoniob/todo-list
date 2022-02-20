@@ -18,8 +18,8 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
   }
 
   const updateToDo: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const selectedToDo: ToDoProps | undefined = toDos.find((element) => element.id === toDo.id)
-    setEditToDo(toDos.find((element: ToDoProps) => element.id === toDo.id))
+    const selectedToDo = toDos.find((element) => element.id === toDo.id)
+    setEditToDo(selectedToDo || null)
     console.log(selectedToDo)
   }
 
