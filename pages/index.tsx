@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
+
 import { fadeInUp } from '../animations/index'
 // import ThemeSwitcher from '../components/ThemeSwitcher'
 import ToDoForm from '../components/ToDoForm'
@@ -13,7 +14,7 @@ export default function Home(): JSX.Element {
   const [toDos, setToDos] = useState<ToDoProps[]>([])
   const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
   const [status, setStatus] = useState('all')
-  const [editToDo, setEditToDo] = useState<null | ToDoProps>(null)
+  const [editToDo, setEditToDo] = useState<ToDoProps| null>({})
   // const [theme, setTheme] = useState('light')
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function Home(): JSX.Element {
     if (localStorage.getItem('toDos') === null) {
       localStorage.setItem('toDos', JSON.stringify([]))
     } else {
-      const toDoLocal = JSON.parse(localStorage.getItem('toDos'))
+      const toDoLocal = JSON.parse(String(localStorage?.getItem('toDos')))
       setToDos(toDoLocal)
     }
   }

@@ -1,7 +1,7 @@
 export type ToDoProps = {
-  text: string
-  id: string
   completed: boolean
+  id: string
+  text: string
 }
 
 export type ToDoFormProps = {
@@ -24,5 +24,6 @@ export type ToDoListProps = {
   toDos: ToDoProps[]
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   filteredToDos: ToDoProps[]
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+  // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+  // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
 }
