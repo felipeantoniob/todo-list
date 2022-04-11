@@ -29,8 +29,11 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
 
   return (
     <>
-      <motion.div variants={fadeInUp}>
-        <ListGroup.Item className="d-flex mb-3 rounded p-0 border align-items-center shadow">
+      <motion.div variants={fadeInUp} data-cy="todo-item">
+        <ListGroup.Item
+          className="d-flex mb-3 rounded p-0 border align-items-center shadow"
+          data-cy={text}
+        >
           <Form.Check type="checkbox" aria-label="Complete to-do" className="ms-3">
             <Form.Check.Input type="checkbox" className="checkbox" onChange={completeToDo} />
           </Form.Check>
@@ -43,6 +46,7 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
               onClick={updateToDo}
               className="border-0 p-3 update-button"
               aria-label="Update to-do"
+              data-cy="update-todo"
             >
               <BsFillPencilFill size="1.5rem" />
             </Button>
@@ -50,6 +54,7 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
               onClick={deleteToDo}
               className="border-0 p-3  delete-button"
               aria-label="Delete to-do"
+              data-cy="delete-todo"
             >
               <BsXLg size="1.5rem" />
             </Button>

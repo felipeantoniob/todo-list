@@ -5,15 +5,15 @@ import ToDo from './ToDo'
 
 const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }: ToDoListProps): JSX.Element => {
   return (
-    <motion.div variants={stagger}>
+    <motion.div variants={stagger} data-cy="todo-list">
       {filteredToDos.map((toDo: ToDoProps) => (
         <ToDo
           key={toDo.id}
-          setToDos={setToDos}
-          toDos={toDos}
-          toDo={toDo}
-          text={toDo.text}
           setEditToDo={setEditToDo}
+          setToDos={setToDos}
+          text={toDo.text}
+          toDo={toDo}
+          toDos={toDos}
         />
       ))}
     </motion.div>

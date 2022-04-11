@@ -1,18 +1,18 @@
-export type ToDoProps = {
+export interface ToDoProps {
   completed: boolean
   id: string
   text: string
 }
 
-export type ToDoFormProps = {
+export interface ToDoFormProps {
   editToDo: ToDoProps | null
   setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
-  setStatus: React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<StatusType>>
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   toDos: ToDoProps[]
 }
 
-export type ToDoComponentProps = {
+export interface ToDoComponentProps {
   setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   text: string
@@ -20,10 +20,12 @@ export type ToDoComponentProps = {
   toDos: ToDoProps[]
 }
 
-export type ToDoListProps = {
+export interface ToDoListProps {
   toDos: ToDoProps[]
   setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
   filteredToDos: ToDoProps[]
   setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
   // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
 }
+
+export type StatusType = 'all' | 'completed' | 'uncompleted'

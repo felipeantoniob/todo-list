@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, FormControl, InputGroup } from 'react-bootstrap'
 import { v4 as uuidv4 } from 'uuid'
-
 import { BsPlusLg, BsFillPencilFill } from 'react-icons/bs'
 
-import { ToDoProps, ToDoFormProps } from '../interfaces'
+import { ToDoProps, ToDoFormProps, StatusType } from '../interfaces'
 
 const ToDoForm = ({
-  toDos,
-  setToDos,
-  setStatus,
   editToDo,
   setEditToDo,
+  setStatus,
+  setToDos,
+  toDos,
 }: ToDoFormProps): JSX.Element => {
   const [input, setInput] = useState('')
   const toDoInput = useRef<HTMLInputElement | null>(null)
@@ -29,10 +28,6 @@ const ToDoForm = ({
     }
   }, [setInput, editToDo])
 
-  // useEffect(() => {
-  //   console.log(editToDo)
-  // }, [setInput, editToDo])
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput(e.currentTarget.value)
   }
@@ -40,9 +35,14 @@ const ToDoForm = ({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
-    if (!input || /^\s*$/.test(input)) {
-      return
+    const isEmptyString = (string: string) => {
+      if (!string || /^\s*$/.test(string)) {
+        return true
+      } else {
+        return false
+      }
     }
+    if (isEmptyString(input)) return
 
     if (!editToDo) {
       setToDos([...toDos, { text: input, id: uuidv4(), completed: false }])
@@ -53,7 +53,7 @@ const ToDoForm = ({
   }
 
   const statusHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setStatus(e.currentTarget.value)
+    setStatus(e.currentTarget.value as StatusType)
   }
 
   const updateToDo = (text: string, id: string): void => {
@@ -67,7 +67,6 @@ const ToDoForm = ({
     })
     setToDos(newToDos)
     setEditToDo(null)
-    console.log(editToDo)
   }
 
   return (
@@ -83,6 +82,7 @@ const ToDoForm = ({
               aria-label="Add to-do"
               value={input}
               className="py-3 text-input"
+              data-cy="todo-input"
             />
             <Button
               type="submit"
@@ -90,6 +90,7 @@ const ToDoForm = ({
               className="p-3 add-button"
               variant="secondary"
               aria-label="Add to-do"
+              data-cy="add-todo"
             >
               {!editToDo ? <BsPlusLg size="2rem" /> : <BsFillPencilFill size="2rem" />}
             </Button>
@@ -102,6 +103,7 @@ const ToDoForm = ({
           onChange={statusHandler}
           onBlur={statusHandler}
           defaultValue="all"
+          data-cy="todo-selector"
         >
           <option value="all">All</option>
           <option value="completed">Completed</option>

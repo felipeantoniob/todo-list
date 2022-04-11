@@ -1,4 +1,3 @@
-// import Footer from './Footer'
 import { AnimatePresence } from 'framer-motion'
 
 interface LayoutProps {
@@ -10,7 +9,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     <div className="content">
       <AnimatePresence exitBeforeEnter>
         {children}
-        {/* <Footer /> */}
       </AnimatePresence>
     </div>
   )

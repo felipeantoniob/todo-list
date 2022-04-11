@@ -7,13 +7,13 @@ import { fadeInUp } from '../animations/index'
 // import ThemeSwitcher from '../components/ThemeSwitcher'
 import ToDoForm from '../components/ToDoForm'
 import ToDoList from '../components/ToDoList'
-import { ToDoProps } from '../interfaces'
+import { ToDoProps, StatusType } from '../interfaces'
 
 export default function Home(): JSX.Element {
   // const initialState = JSON.parse(localStorage.getItem('toDos')) || []
   const [toDos, setToDos] = useState<ToDoProps[]>([])
   const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
-  const [status, setStatus] = useState('all')
+  const [status, setStatus] = useState<StatusType>('all')
   const [editToDo, setEditToDo] = useState<ToDoProps | null>(null)
   // const [theme, setTheme] = useState('light')
 
