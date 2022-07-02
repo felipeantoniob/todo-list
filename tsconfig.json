@@ -19,8 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "cypress/plugins/index.ts",
-    "cypress/integration/todo.spec.ts"
+    "cypress/plugins/index.js",
+    "cypress/integration/todo.spec.js"
   ],
   "exclude": ["node_modules"]
 }
