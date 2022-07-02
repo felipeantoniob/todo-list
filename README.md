@@ -149,7 +149,7 @@ Project Link: [https://github.com/felipeantoniob/todo-list](https://github.com/f
 [stars-url]: https://github.com/felipeantoniob/todo-list/stargazers
 [issues-shield]: https://img.shields.io/github/issues/felipeantoniob/todo-list.svg?style=for-the-badge
 [issues-url]: https://github.com/felipeantoniob/todo-list/issues
-[license-shield]: https://img.shields.io/github/license/felipeantoniob/todo-list.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/felipeantoniob/todo-list?style=for-the-badge
 [license-url]: https://github.com/felipeantoniob/todo-list/blob/master/LICENSE.txt
 [github-repo-size-shield]: https://img.shields.io/github/repo-size/felipeantoniob/todo-list?style=for-the-badge
 [last-commit-badge]: https://img.shields.io/github/last-commit/felipeantoniob/todo-list?style=for-the-badge
