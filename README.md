@@ -37,7 +37,7 @@
 
 ## About The Project
 
-[![To-do List Screenshot][website-screenshot]](https://example.com)
+[![To-do List Screenshot][website-screenshot]](https://next-todo-app-two.vercel.app/)
 
 This website is a functional to-do list application utilizing React hooks and the Web Storage API to store data in localStorage.
 
@@ -77,7 +77,7 @@ This website is a functional to-do list application utilizing React hooks and th
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/felipeantoniob/todo-list.git
    ```
 2. Install packages
 
