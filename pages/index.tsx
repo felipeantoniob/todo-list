@@ -1,73 +1,59 @@
 import { motion } from 'framer-motion'
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
 
 import { fadeInUp } from '../animations/index'
-// import ThemeSwitcher from '../components/ThemeSwitcher'
-import ToDoForm from '../components/ToDoForm'
-import ToDoList from '../components/ToDoList'
-import { ToDoProps, StatusType } from '../interfaces'
+import TodoForm from '../components/TodoForm'
+import TodoList from '../components/TodoList'
+import { TodoProps, FilterType as FilterType } from '../interfaces'
+
+let didInit = false
 
 export default function Home(): JSX.Element {
-  // const initialState = JSON.parse(localStorage.getItem('toDos')) || []
-  const [toDos, setToDos] = useState<ToDoProps[]>([])
-  const [filteredToDos, setFilteredToDos] = useState<ToDoProps[]>([])
-  const [status, setStatus] = useState<StatusType>('all')
-  const [editToDo, setEditToDo] = useState<ToDoProps | null>(null)
-  // const [theme, setTheme] = useState('light')
+  const [todos, setTodos] = useState<TodoProps[]>([])
+  const [filter, setFilter] = useState<FilterType>('all')
+  const [editTodo, setEditTodo] = useState<TodoProps | null>(null)
+  const [input, setInput] = useState('')
+
+  const todoInputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
-    getLocalToDos()
-    // getLocalTheme()
+    if (!didInit) {
+      didInit = true
+      setTodos(() => getLocalTodos())
+      todoInputRef.current!.focus()
+    }
   }, [])
 
-  // useEffect(() => {
-  //   console.log(filteredToDos)
-  // }, [filteredToDos])
-
-  // useEffect(() => {
-  //   console.log(status)
-  // }, [status])
-
-  useEffect(() => {
-    const filterHandler = (): void => {
-      switch (status) {
-        case 'completed':
-          setFilteredToDos(toDos.filter((toDo) => toDo.completed === true))
-          break
-        case 'uncompleted':
-          setFilteredToDos(toDos.filter((toDo) => toDo.completed === false))
-          break
-        default:
-          setFilteredToDos(toDos)
-          break
-      }
-    }
-    const saveLocalToDos = (): void => {
-      localStorage.setItem('toDos', JSON.stringify(toDos))
-    }
-    filterHandler()
-    saveLocalToDos()
-  }, [toDos, status])
-
-  const getLocalToDos = (): void => {
-    if (localStorage.getItem('toDos') === null) {
-      localStorage.setItem('toDos', JSON.stringify([]))
+  const getLocalTodos = (): TodoProps[] => {
+    if (localStorage.getItem('todos') === null) {
+      localStorage.setItem('todos', JSON.stringify([]))
+      return []
     } else {
-      const toDoLocal = JSON.parse(String(localStorage?.getItem('toDos')))
-      setToDos(toDoLocal)
+      const localTodos = JSON.parse(String(localStorage?.getItem('todos')))
+      return localTodos
     }
   }
 
-  // const getLocalTheme = (): void => {
-  //   if (localStorage.getItem('theme') === null) {
-  //     localStorage.setItem('theme', 'dark')
-  //   } else {
-  //     const themeLocal = localStorage.getItem('theme')
-  //     setTheme(themeLocal)
-  //   }
-  // }
+  const getFilteredTodos = (todos: TodoProps[], filter: string) => {
+    switch (filter) {
+      case 'completed':
+        return todos.filter((todo) => todo.completed === true)
+      case 'uncompleted':
+        return todos.filter((todo) => todo.completed === false)
+      default:
+        return todos
+    }
+  }
+
+  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter])
+
+  const saveLocalTodos = useMemo(() => {
+    if (typeof window !== 'undefined' && todos.length > 0) {
+      localStorage.setItem('todos', JSON.stringify(todos))
+    }
+  }, [todos])
 
   return (
     <>
@@ -77,31 +63,34 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <main className={theme === 'light' ? 'light-mode' : 'dark-mode'}> */}
       <main className="dark-mode">
         <motion.div initial="initial" animate="animate" exit={{ opacity: 0 }}>
           <Container className="min-vh-100 pb-5">
             <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-              <Row className="justify-content-center mb-5">
-                {/* <ThemeSwitcher setTheme={setTheme} theme={theme} /> */}
-              </Row>
+              <Row className="justify-content-center mb-5"></Row>
               <Row className="justify-content-center align-items-center mb-5">
-                <ToDoForm
-                  toDos={toDos}
-                  setToDos={setToDos}
-                  setStatus={setStatus}
-                  editToDo={editToDo}
-                  setEditToDo={setEditToDo}
+                <TodoForm
+                  editTodo={editTodo}
+                  todos={todos}
+                  setTodos={setTodos}
+                  setStatus={setFilter}
+                  setEditTodo={setEditTodo}
+                  todoInputRef={todoInputRef}
+                  input={input}
+                  setInput={setInput}
                 />
               </Row>
             </motion.div>
             <Row className="px-2">
               {/* TODO: Fix list items exit animations */}
-              <ToDoList
-                setToDos={setToDos}
-                toDos={toDos}
-                filteredToDos={filteredToDos}
-                setEditToDo={setEditToDo}
+              <TodoList
+                editTodo={editTodo}
+                setTodos={setTodos}
+                todos={todos}
+                visibleTodos={visibleTodos}
+                setEditTodo={setEditTodo}
+                setInput={setInput}
+                todoInputRef={todoInputRef}
               />
             </Row>
           </Container>

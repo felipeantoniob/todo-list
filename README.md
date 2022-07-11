@@ -153,4 +153,4 @@ Project Link: [https://github.com/felipeantoniob/todo-list](https://github.com/f
 [license-url]: https://github.com/felipeantoniob/todo-list/blob/master/LICENSE.txt
 [github-repo-size-shield]: https://img.shields.io/github/repo-size/felipeantoniob/todo-list?style=for-the-badge
 [last-commit-badge]: https://img.shields.io/github/last-commit/felipeantoniob/todo-list?style=for-the-badge
-[website-screenshot]: /static/images/todo_list_screenshot.png
+[website-screenshot]: /public/images/todo_list_screenshot.png

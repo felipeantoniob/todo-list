@@ -3,28 +3,31 @@ import { Button, ButtonGroup, Form, ListGroup } from 'react-bootstrap'
 import { BsXLg, BsFillPencilFill } from 'react-icons/bs'
 
 import { fadeInUp } from '../animations/index'
-import { ToDoProps, ToDoComponentProps } from '../interfaces'
+import { TodoItemProps } from '../interfaces'
 
-const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps): JSX.Element => {
-  const completeToDo: React.ChangeEventHandler<HTMLInputElement> = () => {
-    setToDos(
-      toDos.map((item: ToDoProps) => {
-        if (item.id === toDo.id) {
-          return { ...item, completed: !item.completed }
-        }
-        return item
-      })
-    )
+const Todo = ({
+  setTodos,
+  todos,
+  todo,
+  setEditTodo,
+  setInput,
+  todoInputRef,
+}: TodoItemProps): JSX.Element => {
+  const completeTodo: React.ChangeEventHandler<HTMLInputElement> = () => {
+    const newToDos = todos.map((item) => {
+      return item.id === todo.id ? { ...item, completed: !item.completed } : item
+    })
+    setTodos(newToDos)
   }
 
-  const updateToDo: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const selectedToDo = toDos.find((element) => element.id === toDo.id)
-    setEditToDo(selectedToDo || null)
-    console.log(selectedToDo)
+  const updateTodo: React.MouseEventHandler<HTMLButtonElement> = () => {
+    todoInputRef.current!.focus()
+    setEditTodo(todo)
+    setInput(todo.text)
   }
 
   const deleteToDo: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setToDos(toDos.filter((element: ToDoProps) => element.id !== toDo.id))
+    setTodos(todos.filter((item) => item.id !== todo.id))
   }
 
   return (
@@ -32,18 +35,18 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
       <motion.div variants={fadeInUp} data-cy="todo-item">
         <ListGroup.Item
           className="d-flex mb-3 rounded p-0 border align-items-center shadow"
-          data-cy={text}
+          data-cy={todo.text}
         >
           <Form.Check type="checkbox" aria-label="Complete to-do" className="ms-3">
-            <Form.Check.Input type="checkbox" className="checkbox" onChange={completeToDo} />
+            <Form.Check.Input type="checkbox" className="checkbox" onChange={completeTodo} />
           </Form.Check>
-          <h3 className={toDo.completed ? ' mx-3 completed overflow-auto' : 'mx-3 overflow-auto'}>
-            {text}
+          <h3 className={todo.completed ? ' mx-3 completed overflow-auto' : 'mx-3 overflow-auto'}>
+            {todo.text}
           </h3>
 
           <ButtonGroup size="lg" className="ms-auto">
             <Button
-              onClick={updateToDo}
+              onClick={updateTodo}
               className="border-0 p-3 update-button"
               aria-label="Update to-do"
               data-cy="update-todo"
@@ -65,4 +68,4 @@ const ToDo = ({ setToDos, toDos, toDo, text, setEditToDo }: ToDoComponentProps):
   )
 }
 
-export default ToDo
+export default Todo

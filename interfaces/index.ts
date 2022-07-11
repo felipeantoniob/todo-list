@@ -1,31 +1,38 @@
-export interface ToDoProps {
+export interface TodoProps {
   completed: boolean
   id: string
   text: string
 }
 
-export interface ToDoFormProps {
-  editToDo: ToDoProps | null
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
-  setStatus: React.Dispatch<React.SetStateAction<StatusType>>
-  setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
-  toDos: ToDoProps[]
+export interface TodoFormProps {
+  editTodo: TodoProps | null
+  input: string
+  setEditTodo: React.Dispatch<React.SetStateAction<TodoProps | null>>
+  setInput: React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<FilterType>>
+  setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>
+  todoInputRef: React.MutableRefObject<HTMLInputElement | null>
+  todos: TodoProps[]
 }
 
-export interface ToDoComponentProps {
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
-  setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
-  text: string
-  toDo: ToDoProps
-  toDos: ToDoProps[]
+export interface TodoItemProps {
+  editTodo: TodoProps | null
+  setEditTodo: React.Dispatch<React.SetStateAction<TodoProps | null>>
+  setInput: React.Dispatch<React.SetStateAction<string>>
+  setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>
+  todo: TodoProps
+  todoInputRef: React.MutableRefObject<HTMLInputElement | null>
+  todos: TodoProps[]
 }
 
-export interface ToDoListProps {
-  toDos: ToDoProps[]
-  setToDos: React.Dispatch<React.SetStateAction<ToDoProps[]>>
-  filteredToDos: ToDoProps[]
-  setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps | null>>
-  // setEditToDo: React.Dispatch<React.SetStateAction<ToDoProps>>
+export interface TodoListProps {
+  editTodo: TodoProps | null
+  setEditTodo: React.Dispatch<React.SetStateAction<TodoProps | null>>
+  setInput: React.Dispatch<React.SetStateAction<string>>
+  setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>
+  todoInputRef: React.MutableRefObject<HTMLInputElement | null>
+  todos: TodoProps[]
+  visibleTodos: TodoProps[]
 }
 
-export type StatusType = 'all' | 'completed' | 'uncompleted'
+export type FilterType = 'all' | 'completed' | 'uncompleted'

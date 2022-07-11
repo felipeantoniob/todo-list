@@ -1,23 +1,35 @@
 import { motion } from 'framer-motion'
-import { stagger } from '../animations/index'
-import { ToDoProps, ToDoListProps } from '../interfaces'
-import ToDo from './ToDo'
 
-const ToDoList = ({ toDos, setToDos, filteredToDos, setEditToDo }: ToDoListProps): JSX.Element => {
+import Todo from './Todo'
+
+import { stagger } from '../animations/index'
+import { TodoProps, TodoListProps } from '../interfaces'
+
+const TodoList = ({
+  editTodo,
+  setEditTodo,
+  setInput,
+  setTodos,
+  todoInputRef,
+  todos,
+  visibleTodos,
+}: TodoListProps): JSX.Element => {
   return (
     <motion.div variants={stagger} data-cy="todo-list">
-      {filteredToDos.map((toDo: ToDoProps) => (
-        <ToDo
-          key={toDo.id}
-          setEditToDo={setEditToDo}
-          setToDos={setToDos}
-          text={toDo.text}
-          toDo={toDo}
-          toDos={toDos}
+      {visibleTodos.map((todo: TodoProps) => (
+        <Todo
+          editTodo={editTodo}
+          key={todo.id}
+          setEditTodo={setEditTodo}
+          setInput={setInput}
+          setTodos={setTodos}
+          todo={todo}
+          todoInputRef={todoInputRef}
+          todos={todos}
         />
       ))}
     </motion.div>
   )
 }
 
-export default ToDoList
+export default TodoList

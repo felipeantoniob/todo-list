@@ -1,83 +1,58 @@
-import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, FormControl, InputGroup } from 'react-bootstrap'
-import { v4 as uuidv4 } from 'uuid'
 import { BsPlusLg, BsFillPencilFill } from 'react-icons/bs'
+import { v4 as uuidv4 } from 'uuid'
 
-import { ToDoProps, ToDoFormProps, StatusType } from '../interfaces'
+import { TodoFormProps, FilterType } from '../interfaces'
 
-const ToDoForm = ({
-  editToDo,
-  setEditToDo,
+const TodoForm = ({
+  editTodo,
+  input,
+  setEditTodo,
+  setInput,
   setStatus,
-  setToDos,
-  toDos,
-}: ToDoFormProps): JSX.Element => {
-  const [input, setInput] = useState('')
-  const toDoInput = useRef<HTMLInputElement | null>(null)
-
-  useEffect(() => {
-    toDoInput?.current?.focus()
-  }, [])
-
-  useEffect(() => {
-    if (editToDo) {
-      setInput(editToDo.text)
-      toDoInput?.current?.focus()
-    } else {
-      setInput('')
-    }
-  }, [setInput, editToDo])
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  setTodos,
+  todoInputRef,
+  todos,
+}: TodoFormProps): JSX.Element => {
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput(e.currentTarget.value)
   }
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
-    const isEmptyString = (string: string) => {
-      if (!string || /^\s*$/.test(string)) {
-        return true
-      } else {
-        return false
-      }
-    }
+    const isEmptyString = (string: string) => (!string || /^\s*$/.test(string) ? true : false)
     if (isEmptyString(input)) return
 
-    if (!editToDo) {
-      setToDos([...toDos, { text: input, id: uuidv4(), completed: false }])
+    if (!editTodo) {
+      setTodos([...todos, { text: input, id: uuidv4(), completed: false }])
       setInput('')
     } else {
-      updateToDo(input, editToDo.id)
+      updateTodo(input, editTodo.id)
     }
   }
 
   const statusHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setStatus(e.currentTarget.value as StatusType)
+    setStatus(e.currentTarget.value as FilterType)
   }
 
-  const updateToDo = (text: string, id: string): void => {
-    const newToDos = toDos.map((item: ToDoProps) => {
-      if (item.id === id) {
-        return { ...item, text: text }
-      } else {
-        return item
-      }
-      // item.id === id ? { ...item, text: text } : item
+  const updateTodo = (text: string, id: string): void => {
+    const newToDos = todos.map((item) => {
+      return item.id === id ? { ...item, text: text } : item
     })
-    setToDos(newToDos)
-    setEditToDo(null)
+    setTodos(newToDos)
+    setEditTodo(null)
   }
 
   return (
     <>
       <Col xs={12} md={6} className="mb-3">
-        <Form onSubmit={handleSubmit} className="shadow-sm">
+        <Form onSubmit={handleFormSubmit} className="shadow-sm">
           <InputGroup size="lg">
             <FormControl
               type="text"
-              ref={toDoInput}
-              onChange={handleChange}
+              ref={todoInputRef}
+              onChange={handleInputChange}
               placeholder="Add task"
               aria-label="Add to-do"
               value={input}
@@ -92,7 +67,7 @@ const ToDoForm = ({
               aria-label="Add to-do"
               data-cy="add-todo"
             >
-              {!editToDo ? <BsPlusLg size="2rem" /> : <BsFillPencilFill size="2rem" />}
+              {!editTodo ? <BsPlusLg size="2rem" /> : <BsFillPencilFill size="2rem" />}
             </Button>
           </InputGroup>
         </Form>
@@ -114,4 +89,4 @@ const ToDoForm = ({
   )
 }
 
-export default ToDoForm
+export default TodoForm
